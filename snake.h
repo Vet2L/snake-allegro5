@@ -39,7 +39,7 @@ public:
     void eatFood();
 
     SHead getSnakeHead();
-    std::vector<SBody> getSnakeBody();
+    std::vector<SBody> &getSnakeBody();
     uint getSpeed();
     uint getScore();
 

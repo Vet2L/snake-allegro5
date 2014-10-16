@@ -125,7 +125,7 @@ SHead Snake::getSnakeHead()
     return this->head;
 }
 
-std::vector<SBody> Snake::getSnakeBody()
+std::vector<SBody> &Snake::getSnakeBody()
 {
     return this->body;
 }
