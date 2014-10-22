@@ -2,7 +2,6 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_font.h>
 //#include <allegro5/allegro_primitives.h>				//Our primitive header file
-#include <sstream>
 #include "snake.h"
 
 enum KEYS{ UP, DOWN, LEFT, RIGHT};
@@ -18,7 +17,6 @@ bool at_start = true;
 bool lock_move = false;
 
 ALLEGRO_FONT *font;
-std::ostringstream *txt;
 
 void restart()
 {
@@ -44,7 +42,7 @@ void restart()
 
 void showScore()
 {
-    al_draw_text(font, al_map_rgb(255, 255, 255), 10, 10, NULL, txt->str().c_str());
+    al_draw_textf(font, al_map_rgb(255, 255, 255), 10, 10, NULL, "Score: %i", snake->getScore());
 }
 
 void drawFunc()
@@ -90,9 +88,6 @@ void updateFunc(uint gtime)
             && (snake->getSnakeHead().getY() == food->getY()))
     {
         snake->eatFood();
-        delete txt;
-        txt = new std::ostringstream();
-        txt->operator <<(snake->getScore());
         bool re_food = true;
         while (re_food)
         {
@@ -122,7 +117,6 @@ int main(void)
     bool redraw = true;
     snake = new Snake(width/2, height/2);
     food = new SFood((rand()%50)*10, (rand()%50)*10);
-    txt = new std::ostringstream();
 
     ALLEGRO_DISPLAY *display = NULL;
     ALLEGRO_EVENT_QUEUE *event_queue = NULL;
@@ -250,7 +244,6 @@ int main(void)
     al_destroy_font(font);
     delete snake;
     delete food;
-    delete txt;
 
     return 0;
 }
